@@ -14,7 +14,7 @@ class ToDo
         return $stmt->execute([$title, 'pending', $dueDate]);
     }
 
-    public function get(): false|array
+    public function getAllTodos(): false|array
     {
         $sql = "Select * from todos";
         $stmt = $this->db->pdo->query($sql);

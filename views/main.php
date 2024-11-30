@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                 <?php
-                global $tasks;
+                /** @var TYPE_NAME $tasks */
                 foreach($tasks as $task){
                     if($task['status'] == 'pending'){
 

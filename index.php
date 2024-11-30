@@ -1,48 +1,63 @@
 <?php
+date_default_timezone_set('Asia/Tashkent');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 require 'src/ToDo.php';
-$todo = new ToDo();
-$tasks = $todo->get();
-date_default_timezone_set('Asia/Tashkent');
+require 'src/Router.php';
 
-if ($uri == '/'){
+$todo = new ToDo();
+$router = new Router();
+
+$router->get('/', function () {
+    require 'views/home.php';
+});
+
+$router->post('/todos',function ()use($todo){
     if (isset($_POST['title']) && isset($_POST['due_date'])) {
         $title = $_POST['title'];
         $due_date = new DateTime($_POST['due_date']);
 
         $todo->store($title, $due_date->format('Y-m-d H:i:s'));
-        header('Location: /');
+        header('Location: /todos');
         exit();
-
     }
-    require 'view.php';
+});
 
-}elseif($uri == '/complete'){
+$router->get('/todos',function ()use($todo){
+    $tasks = $todo->getAllTodos();
+    require 'views/main.php';
+});
+
+$router->get('/complete',function ()use($todo){
     if (isset($_GET['id'])) {
         $todo->completed($_GET['id']);
-        header('Location: /');
+        header('Location: /todos');
         exit();
     }
-}elseif($uri == '/progress'){
+});
+
+$router->get('/progress',function ()use($todo){
     if (isset($_GET['id'])) {
         $todo->progress($_GET['id']);
-        header('Location: /');
+        header('Location: /todos');
         exit();
     }
-}elseif($uri == '/pending'){
+});
+
+$router->get('/pending',function ()use($todo){
     if (isset($_GET['id'])) {
         $todo->pending($_GET['id']);
-        header('Location: /');
+        header('Location: /todos');
         exit();
     }
-} elseif($uri == '/delete') {
+});
+
+$router->get('/delete',function ()use($todo){
     if (isset($_GET['id'])) {
         $todo->delete($_GET['id']);
-        header('Location: /');
-//        exit();
+        header('Location: /todos');
+        exit();
     }
-}
-
+});
 
 
