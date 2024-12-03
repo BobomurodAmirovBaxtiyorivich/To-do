@@ -25,39 +25,31 @@ $router->post('/todos',function ()use($todo){
 
 $router->get('/todos',function ()use($todo){
     $tasks = $todo->getAllTodos();
-    require 'views/main.php';
+    require 'views/todos.php';
 });
 
-$router->get('/complete',function ()use($todo){
-    if (isset($_GET['id'])) {
-        $todo->completed($_GET['id']);
+$router->get('/complete/{id}',function ($todoId)use($todo){
+        $todo->completed($todoId);
         header('Location: /todos');
         exit();
-    }
 });
 
-$router->get('/progress',function ()use($todo){
-    if (isset($_GET['id'])) {
-        $todo->progress($_GET['id']);
+$router->get('/progress/{id}',function ($todoId)use($todo){
+        $todo->progress($todoId);
         header('Location: /todos');
         exit();
-    }
 });
 
-$router->get('/pending',function ()use($todo){
-    if (isset($_GET['id'])) {
-        $todo->pending($_GET['id']);
+$router->get('/pending/{id}',function ($todoId)use($todo){
+        $todo->pending($todoId);
         header('Location: /todos');
         exit();
-    }
 });
 
-$router->get('/delete',function ()use($todo){
-    if (isset($_GET['id'])) {
-        $todo->delete($_GET['id']);
+$router->get('/delete/{id}',function ($todoId)use($todo){
+        $todo->delete($todoId);
         header('Location: /todos');
         exit();
-    }
 });
 
 

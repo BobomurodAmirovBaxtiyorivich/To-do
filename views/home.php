@@ -22,13 +22,16 @@
             background-color: #007BFF;
             text-decoration: none;
             border-radius: 5px;
+            border-color: aliceblue;
         }
         .button-link:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
-<body>
+<body style="background-image: url(https://as1.ftcdn.net/v2/jpg/01/10/01/90/1000_F_110019055_JBbr778hMxpwuwDaFszyQNck5PhBYHli.jpg);
+             background-repeat: no-repeat;
+             background-size: cover;">
 
 <?php
 echo "<h1>Welcome to home page of todo.<br>To visit main page click button</h1>";

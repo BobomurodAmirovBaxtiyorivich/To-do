@@ -14,7 +14,9 @@
     </style>
 </head>
 
-<body style="background-image: url(https://i.pinimg.com/originals/53/44/9f/53449fa87702af80374c45b87080c639.jpg)">
+<body style="background-image: url(https://i.pinimg.com/originals/53/44/9f/53449fa87702af80374c45b87080c639.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;">
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="todo_body my-5 p-3">
@@ -53,9 +55,9 @@
                             <td>{$task['status']}</td>
                             <td>{$task['due_date']}</td>
                             <td>
-                                <a href='/delete?id=$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
-                                <a href='/progress?id=$task[id]' type='button' class='btn btn-outline-warning'>In progress</a>
-                                <a href='/complete?id=$task[id]' type='button' class='btn btn-outline-info'>Done</a>
+                                <a href='/delete/$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
+                                <a href='/progress/$task[id]' type='button' class='btn btn-outline-warning'>In progress</a>
+                                <a href='/complete/$task[id]' type='button' class='btn btn-outline-info'>Done</a>
                             </td>
                             </tr>";
                     }
@@ -67,8 +69,8 @@
                                     <td>{$task['status']}</td>
                                     <td>{$task['due_date']}</td>
                                     <td>
-                                        <a href='/delete?id=$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
-                                        <a href='/progress?id=$task[id]' type='button' class='btn btn-outline-warning'>To progress</a>
+                                        <a href='/delete/$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
+                                        <a href='/progress/$task[id]' type='button' class='btn btn-outline-warning'>To progress</a>
                                     </td>
                            
                                 </tr>";
@@ -79,9 +81,9 @@
                                     <td>{$task['status']}</td>
                                     <td>{$task['due_date']}</td>
                                     <td>
-                                        <a href='/delete?id=$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
-                                        <a href='/pending?id=$task[id]' type='button' class='btn btn-outline-warning'>To pending</a>
-                                        <a href='/complete?id=$task[id]' type='button' class='btn btn-outline-info'>Done</a>       
+                                        <a href='/delete/$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
+                                        <a href='/pending/$task[id]' type='button' class='btn btn-outline-warning'>To pending</a>
+                                        <a href='/complete/$task[id]' type='button' class='btn btn-outline-info'>Done</a>       
                                     </td>
                            
                                 </tr>";
