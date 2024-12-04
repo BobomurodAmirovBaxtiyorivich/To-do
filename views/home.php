@@ -1,43 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greeting Page</title>
+    <title>Kirish qisim</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        .button-link {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 16px;
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
             color: white;
-            background-color: #007BFF;
-            text-decoration: none;
-            border-radius: 5px;
-            border-color: aliceblue;
         }
-        .button-link:hover {
-            background-color: #0056b3;
+
+        .custom-button {
+            position: relative;
+            background: linear-gradient(90deg, #7ef0ff, #17565e);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 15px rgba(117, 255, 149, 0.4);
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .custom-button:hover {
+            background: linear-gradient(90deg, #8eff75, #39fd3d);
+            box-shadow: 0 12px 20px rgba(85, 204, 81, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .custom-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-30deg);
+            transition: all 0.5s ease;
+        }
+
+        .custom-button:hover::before {
+            left: 100%;
         }
     </style>
 </head>
-<body style="background-image: url(https://as1.ftcdn.net/v2/jpg/01/10/01/90/1000_F_110019055_JBbr778hMxpwuwDaFszyQNck5PhBYHli.jpg);
-             background-repeat: no-repeat;
-             background-size: cover;">
-
 <?php
-echo "<h1>Welcome to home page of todo.<br>To visit main page click button</h1>";
+echo "<h1>Welcome to home page of todo<br>To visit main page click button</h1>";
 ?>
-
-<a href="/todos" class="button-link">Main page</a>
-
+<body>
+<a href="/todos" class="custom-button">Go to Todo</a>
 </body>
 </html>
+
+

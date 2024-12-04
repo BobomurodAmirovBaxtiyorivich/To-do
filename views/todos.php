@@ -9,7 +9,11 @@
     <style>
         .todo_body {
             max-width: 950px;
-            box-shadow: 0 0 2px 2px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            transition: backdrop-filter 0.3s ease-in-out;
+
         }
     </style>
 </head>
@@ -20,11 +24,8 @@
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="todo_body my-5 p-3">
-            <h1 class="text-center todo-text">Todo app</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque cum, deleniti esse id, inventore, labore
-                non optio provident quos reiciendis totam ut. Alias cupiditate dignissimos fugit, illum in veniam?
-    Animi.</p>
-
+            <h1 class="text-center">Todo app</h1>
+            <h4 class="text-center">Add tasks</h4>
             <form action="" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="task name" name="title"
@@ -55,9 +56,10 @@
                             <td>{$task['status']}</td>
                             <td>{$task['due_date']}</td>
                             <td>
-                                <a href='/delete/$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
-                                <a href='/progress/$task[id]' type='button' class='btn btn-outline-warning'>In progress</a>
-                                <a href='/complete/$task[id]' type='button' class='btn btn-outline-info'>Done</a>
+                                <a href='/todos/$task[id]/delete' type='button' class='btn btn-outline-danger'>Delete</a>
+                                <a href='/todos/$task[id]/progress' type='button' class='btn btn-outline-warning'>In progress</a>
+                                <a href='/todos/$task[id]/complete' type='button' class='btn btn-outline-info'>Done</a>
+                                <a href='/todos/$task[id]/edit' type='button' class='btn btn-outline-info'>Edit</a>
                             </td>
                             </tr>";
                     }
@@ -69,8 +71,8 @@
                                     <td>{$task['status']}</td>
                                     <td>{$task['due_date']}</td>
                                     <td>
-                                        <a href='/delete/$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
-                                        <a href='/progress/$task[id]' type='button' class='btn btn-outline-warning'>To progress</a>
+                                        <a href='/todos/$task[id]/delete' type='button' class='btn btn-outline-danger'>Delete</a>
+                                        <a href='/todos/$task[id]/progress' type='button' class='btn btn-outline-warning'>To progress</a>
                                     </td>
                            
                                 </tr>";
@@ -81,9 +83,10 @@
                                     <td>{$task['status']}</td>
                                     <td>{$task['due_date']}</td>
                                     <td>
-                                        <a href='/delete/$task[id]' type='button' class='btn btn-outline-danger'>Delete</a>
-                                        <a href='/pending/$task[id]' type='button' class='btn btn-outline-warning'>To pending</a>
-                                        <a href='/complete/$task[id]' type='button' class='btn btn-outline-info'>Done</a>       
+                                        <a href='/todos/$task[id]/delete' type='button' class='btn btn-outline-danger'>Delete</a>
+                                        <a href='/todos/$task[id]/pending' type='button' class='btn btn-outline-warning'>To pending</a>
+                                        <a href='/todos/$task[id]/edit' type='button' class='btn btn-outline-info'>Edit</a>
+                                        <a href='/todos/$task[id]/complete' type='button' class='btn btn-outline-info'>Done</a>       
                                     </td>
                            
                                 </tr>";

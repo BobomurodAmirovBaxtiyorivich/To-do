@@ -20,6 +20,13 @@ class ToDo
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function edit(int $id): false|array
+    {
+        $sql = "Select * from todos where id=:id";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function completed(int $id): bool
     {
