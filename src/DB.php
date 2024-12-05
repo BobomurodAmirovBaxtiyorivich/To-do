@@ -1,8 +1,21 @@
 <?php
+namespace App;
+
 class DB
 {
-    public PDO $pdo;
+    public mixed $host;
+    public mixed $dbname;
+    public mixed $user;
+    public mixed $password;
+    public $pdo;
+
     public function __construct(){
-            $this->pdo = new PDO("mysql:host=localhost;dbname=toDo", "root", "root");
+        $this->host = $_ENV['DB_HOST'];
+        $this->dbname = $_ENV['DB_NAME'];
+        $this->user = $_ENV['DB_USER'];
+        $this->password = $_ENV['DB_PASSWORD'];
+
+        // Use global PDO class
+        $this->pdo = new \PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->password);
     }
 }

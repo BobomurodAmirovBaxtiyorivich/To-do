@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do list</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        .todo_body {
-            max-width: 950px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(5px);
-            transition: backdrop-filter 0.3s ease-in-out;
-
-        }
-    </style>
-</head>
-
-<body style="background-image: url(https://i.pinimg.com/originals/53/44/9f/53449fa87702af80374c45b87080c639.jpg);
-            background-repeat: no-repeat;
-            background-size: cover;">
+<?php
+require 'views/components/header.php'?>
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="todo_body my-5 p-3">
@@ -50,20 +29,16 @@
                 /** @var TYPE_NAME $tasks */
                 foreach($tasks as $task){
                     if($task['status'] == 'pending'){
-
                         echo "<tr>
                             <td>{$task['title']}</td>
                             <td>{$task['status']}</td>
                             <td>{$task['due_date']}</td>
                             <td>
                                 <a href='/todos/$task[id]/delete' type='button' class='btn btn-outline-danger'>Delete</a>
-                                <a href='/todos/$task[id]/progress' type='button' class='btn btn-outline-warning'>In progress</a>
-                                <a href='/todos/$task[id]/complete' type='button' class='btn btn-outline-info'>Done</a>
                                 <a href='/todos/$task[id]/edit' type='button' class='btn btn-outline-info'>Edit</a>
                             </td>
                             </tr>";
-                    }
-                    elseif($task['status'] == 'completed'){
+                    } elseif($task['status'] == 'completed'){
                         echo "<tr>
                                     <td>
                                         <del>{$task['title']}</del>
@@ -72,23 +47,18 @@
                                     <td>{$task['due_date']}</td>
                                     <td>
                                         <a href='/todos/$task[id]/delete' type='button' class='btn btn-outline-danger'>Delete</a>
-                                        <a href='/todos/$task[id]/progress' type='button' class='btn btn-outline-warning'>To progress</a>
+                                        <a href='/todos/$task[id]/edit' type='button' class='btn btn-outline-info'>Edit</a>
                                     </td>
-                           
                                 </tr>";
-                    }
-                    elseif($task['status'] == 'in_progress'){
+                    } elseif($task['status'] == 'in_progress'){
                         echo "<tr>
                                     <td>{$task['title']}</td>
                                     <td>{$task['status']}</td>
                                     <td>{$task['due_date']}</td>
                                     <td>
                                         <a href='/todos/$task[id]/delete' type='button' class='btn btn-outline-danger'>Delete</a>
-                                        <a href='/todos/$task[id]/pending' type='button' class='btn btn-outline-warning'>To pending</a>
                                         <a href='/todos/$task[id]/edit' type='button' class='btn btn-outline-info'>Edit</a>
-                                        <a href='/todos/$task[id]/complete' type='button' class='btn btn-outline-info'>Done</a>       
                                     </td>
-                           
                                 </tr>";
                     }
                 }
@@ -98,5 +68,5 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+<?php
+require 'views/components/footer.php'?>
