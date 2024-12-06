@@ -7,7 +7,7 @@ class DB
     public mixed $dbname;
     public mixed $user;
     public mixed $password;
-    public $pdo;
+    public \PDO $pdo;
 
     public function __construct(){
         $this->host = $_ENV['DB_HOST'];
