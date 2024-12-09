@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Bot
 {
-    const string API_URL = "https://api.telegram.org/bot";
+    const API_URL = "https://api.telegram.org/bot";
     public $client;
     private $token;
 

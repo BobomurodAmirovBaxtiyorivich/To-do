@@ -6,16 +6,14 @@ require 'bootstrap.php';
 
 use App\ToDo;
 use App\Router;
-use App\ToDoController;
 
 $todo = new ToDo();
 $router = new Router();
-$controller = new ToDoController($todo);
 
 $router->get('/', fn() => require 'views/home.php');
 $router->get('/bot', fn() => require 'app/bot.php');
-$router->get('/todos', fn() => $controller->showAll());
-$router->get('/todos/{id}/delete', fn($id) => $controller->delete($id));
-$router->get('/todos/{id}/edit', fn($id) => $controller->showEdit($id));
-$router->put('/todos/{id}/update', fn($id) => $controller->update($id) );
-$router->post('/todos', fn() => $controller->store());
+$router->get('/todos', fn() => require 'controllers/showAll.php');
+$router->get('/todos/{id}/delete', fn($id) => require 'controllers/delete.php');
+$router->get('/todos/{id}/edit', fn($id) => require 'controllers/edit.php');
+$router->put('/todos/{id}/update', fn($id) => require 'controllers/update.php');
+$router->post('/todos', fn() => require 'controllers/store.php');
