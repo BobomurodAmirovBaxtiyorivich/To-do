@@ -6,9 +6,11 @@ require 'bootstrap.php';
 
 use App\ToDo;
 use App\Router;
+use App\Users;
 
 $todo = new ToDo();
 $router = new Router();
+$users = new Users();
 
 $router->get('/', fn() => require 'views/home.php');
 $router->get('/bot', fn() => require 'app/bot.php');
@@ -19,3 +21,4 @@ $router->get('/todos/{id}/delete', fn($id) => require 'controllers/delete.php');
 $router->get('/todos/{id}/edit', fn($id) => require 'controllers/edit.php');
 $router->put('/todos/{id}/update', fn($id) => require 'controllers/update.php');
 $router->post('/todos', fn() => require 'controllers/store.php');
+$router->post('/register', fn() => require 'controllers/storeUser.php');
