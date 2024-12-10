@@ -1,5 +1,6 @@
 <?php
-require 'views/components/header.php';?>
+require 'views/components/header.php';
+require 'views/components/navbar.php';?>
 <div class="container">
     <div class="edit-container">
         <h2 class="edit-header">Edit Task</h2>
@@ -29,4 +30,4 @@ require 'views/components/header.php';?>
     </div>
 </div>
 <?php
-require 'views/components/footer.php';?>
+require 'views/components/footer.php';

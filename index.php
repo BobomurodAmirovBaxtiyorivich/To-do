@@ -12,6 +12,8 @@ $router = new Router();
 
 $router->get('/', fn() => require 'views/home.php');
 $router->get('/bot', fn() => require 'app/bot.php');
+$router->get('/register', fn() => require 'views/register.php');
+$router->get('/login', fn() => require 'views/login.php');
 $router->get('/todos', fn() => require 'controllers/showAll.php');
 $router->get('/todos/{id}/delete', fn($id) => require 'controllers/delete.php');
 $router->get('/todos/{id}/edit', fn($id) => require 'controllers/edit.php');
