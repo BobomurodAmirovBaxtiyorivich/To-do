@@ -24,6 +24,9 @@ require 'views/components/navbar.php';
                 <input type="password" class="form-control" id="confirmPassword" name="confirm_password" placeholder="Confirm your password" required>
             </div>
             <div class="d-grid">
+                <p class="text-danger text-center" style="display: block"><?= $_SESSION['error'] ?? ''?></p>
+            </div>
+            <div class="d-grid">
                 <button type="submit" class="btn btn-success">Register</button>
             </div>
         </form>
