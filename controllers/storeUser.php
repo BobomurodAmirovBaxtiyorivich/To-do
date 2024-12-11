@@ -5,8 +5,8 @@ if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password'
         header('Location: /register');
         exit();
     }
-    $lastUserId = (new App\Users())->register($_POST['name'],$_POST['email'],$_POST['password']);
-    if($lastUserId){
+    $user = (new App\Users())->register($_POST['name'],$_POST['email'],$_POST['password']);
+    if($user){
         unset($_SESSION['error']);
         header('Location: /todos');
         exit();
