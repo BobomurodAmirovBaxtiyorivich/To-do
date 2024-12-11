@@ -15,6 +15,9 @@ require 'views/components/navbar.php';
                 <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Enter your password" required>
             </div>
             <div class="d-grid">
+                <p class="text-danger text-center" style="display: block"><?= $_SESSION['error'] ?? ''?></p>
+            </div>
+            <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
