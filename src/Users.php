@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 class Users
 {
     public DB $db;
@@ -9,19 +11,11 @@ class Users
         $this->db = new DB();
     }
     public function login($email, $password){
-        $stmt = $this->db->pdo->query("SELECT * FROM users WHERE email = :email");
+        $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE email= :email");
         $stmt->execute([':email' => $email]);
-        $user =  $stmt->fetch();
-
-        if (!$user) {
-            return 'User not found';
-        }
-        if (!password_verify($password, $user['password'])) {
-            return 'Wrong password';
-        }
-        return $user;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    public function register($name, $email,$password): bool
+    public function register($name, $email,$password): mixed
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $query = "SELECT * FROM users WHERE email = '$email'";
@@ -31,10 +25,19 @@ class Users
             return false;
         }
         $stmt = $this->db->pdo->prepare("INSERT INTO users (full_name, email, password) VALUES (:name, :email, :password)");
-        return $stmt->execute([
+        $stmt->execute([
             'email' => $email,
             'password' => $password,
             'name' => $name
         ]);
+        return $this->getUserById($this->db->pdo->lastInsertId());
+    }
+    public function getUserById(int $id)
+    {
+        $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->execute([
+            'id' => $id,
+        ]);
+        return $stmt->fetch();
     }
 }
