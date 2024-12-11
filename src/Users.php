@@ -15,7 +15,7 @@ class Users
         $stmt->execute([':email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    public function register($name, $email,$password): bool
+    public function register($name, $email,$password): mixed
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $query = "SELECT * FROM users WHERE email = '$email'";
@@ -25,10 +25,19 @@ class Users
             return false;
         }
         $stmt = $this->db->pdo->prepare("INSERT INTO users (full_name, email, password) VALUES (:name, :email, :password)");
-        return $stmt->execute([
+        $stmt->execute([
             'email' => $email,
             'password' => $password,
             'name' => $name
         ]);
+        return $this->getUserById($this->db->pdo->lastInsertId());
+    }
+    public function getUserById(int $id)
+    {
+        $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->execute([
+            'id' => $id,
+        ]);
+        return $stmt->fetch();
     }
 }
