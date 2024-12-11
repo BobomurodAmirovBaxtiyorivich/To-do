@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/">Todo App</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -6,9 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <?php
-                if (isset($_SESSION['user'])) :
-                    ?>
+                <?php if (isset($_SESSION['user'])): ?>
                     <li class="dropdown">
                         <a href="/todos" data-bs-toggle="dropdown" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
@@ -23,14 +21,10 @@
                             <li><a class="dropdown-item" href="/todos"><?= $_SESSION['user']['full_name'] ?? '' ?></a></li>
                         </ul>
                     </li>
-                <?php
-                else:
-                    ?>
+                <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
                     <li class="nav-item"><a class="btn btn-primary" href="/register">Register</a></li>
-                <?php
-                endif;
-                ?>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
