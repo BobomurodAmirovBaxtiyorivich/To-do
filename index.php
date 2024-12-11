@@ -12,7 +12,7 @@ $router = new Router();
 $users = new Users();
 
 $router->get('/', fn() => require 'views/home.php');
-$router->get('/log_out', fn() => require 'log_out.php');
+$router->get('/log_out', fn() => require 'controllers/logout.php');
 $router->get('/bot', fn() => require 'app/bot.php');
 $router->get('/register', fn() => require 'views/register.php');
 $router->get('/login', fn() => require 'views/login.php');
