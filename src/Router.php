@@ -38,7 +38,7 @@ class Router
     public function put($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($_POST['_method'] == 'PUT') {
+            if (isset($_POST['_method']) && $_POST['_method'] == 'PUT') {
                 $resourceID = $this->getResource();
                 $route = str_replace("{id}", $resourceID, $route);
                 if ($route == $this->currentRoute){
