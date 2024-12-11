@@ -13,13 +13,19 @@ class Users
         $stmt->execute();
         return $stmt->fetch();
     }
-    public function register($email, $password,$name): bool
+    public function register($name, $email,$password): bool
     {
-        $stmt = $this->db->pdo->prepare("INSERT INTO users (full_name,email, password) VALUES (:name,:email, :password)");
+        $query = "SELECT * FROM users WHERE email = '$email'";
+        $stmt = $this->db->pdo->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return false;
+        }
+        $stmt = $this->db->pdo->prepare("INSERT INTO users (full_name, email, password) VALUES (:name, :email, :password)");
         return $stmt->execute([
-            'name' => $name,
             'email' => $email,
-            'password' => $password
+            'password' => $password,
+            'name' => $name
         ]);
     }
 }
