@@ -9,6 +9,7 @@ if(!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password'
     if($user){
         unset($_SESSION['error']);
         unset($user['password']);
+        $_SESSION['user'] = $user;
         header('Location: /todos');
         exit();
     }
