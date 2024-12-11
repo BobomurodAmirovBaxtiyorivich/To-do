@@ -2,13 +2,11 @@
 date_default_timezone_set('Asia/Tashkent');
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-
 require 'bootstrap.php';
 
 use App\ToDo;
 use App\Router;
 use App\Users;
-
 $todo = new ToDo();
 $router = new Router();
 $users = new Users();

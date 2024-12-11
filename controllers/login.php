@@ -4,16 +4,12 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
     $password = $_POST['password'];
     $user = (new App\Users())->login($email, $password);
     if(!$user) {
-        $_SESSION['error'] = 'User not found';
+        $_SESSION['error'] = 'Wrong email or password';
         header('location: /login');
         exit();
     }
-    if(password_verify($password, $user['password'])) {
-        unset($_SESSION['error']);
-        var_dump($user);
-        header('location: /todos');
-        exit();
-    }
-    $_SESSION['error'] = 'Wrong password';
-    header('location: /login');
+    unset($user['password']);
+    $_SESSION['user'] = $user;
+    header('location: /todos');
+    exit();
 }
