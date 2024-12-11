@@ -23,3 +23,4 @@ $router->get('/todos/{id}/edit', fn($id) => require 'controllers/edit.php');
 $router->put('/todos/{id}/update', fn($id) => require 'controllers/update.php');
 $router->post('/todos', fn() => require 'controllers/store.php');
 $router->post('/register', fn() => require 'controllers/storeUser.php');
+$router->post('/login', fn() => require 'controllers/login.php');

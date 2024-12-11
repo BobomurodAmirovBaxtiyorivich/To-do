@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 class Users
 {
     public DB $db;
@@ -9,17 +11,9 @@ class Users
         $this->db = new DB();
     }
     public function login($email, $password){
-        $stmt = $this->db->pdo->query("SELECT * FROM users WHERE email = :email");
+        $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE email= :email");
         $stmt->execute([':email' => $email]);
-        $user =  $stmt->fetch();
-
-        if (!$user) {
-            return 'User not found';
-        }
-        if (!password_verify($password, $user['password'])) {
-            return 'Wrong password';
-        }
-        return $user;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     public function register($name, $email,$password): bool
     {

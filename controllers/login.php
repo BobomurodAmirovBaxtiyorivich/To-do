@@ -8,9 +8,12 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
         header('location: /login');
         exit();
     }
-    if(!password_verify($password, $user['password'])) {
-        $_SESSION['error'] = 'Wrong password';
-        header('location: /login');
+    if(password_verify($password, $user['password'])) {
+        unset($_SESSION['error']);
+        var_dump($user);
+        header('location: /todos');
         exit();
     }
+    $_SESSION['error'] = 'Wrong password';
+    header('location: /login');
 }
