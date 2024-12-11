@@ -15,11 +15,11 @@ class Users
     }
     public function register($email, $password,$name): bool
     {
-        $stmt = $this->db->pdo->prepare("INSERT INTO users (email, password, name) VALUES (:email, :password, :name)");
+        $stmt = $this->db->pdo->prepare("INSERT INTO users (full_name,email, password) VALUES (:name,:email, :password)");
         return $stmt->execute([
+            'name' => $name,
             'email' => $email,
-            'password' => $password,
-            'name' => $name
+            'password' => $password
         ]);
     }
 }
