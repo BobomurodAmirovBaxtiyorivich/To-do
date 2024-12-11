@@ -2,16 +2,22 @@
 
 namespace App;
 
+use PDO;
+
 class Users
 {
     public DB $db;
-    public function __construct(){
+
+    public function __construct()
+    {
         $this->db = new DB();
     }
-    public function login($email, $password){
+
+    public function login($email, $password)
+    {
         $stmt = $this->db->pdo->query("SELECT * FROM users WHERE email = :email");
         $stmt->execute([':email' => $email]);
-        $user =  $stmt->fetch();
+        $user = $stmt->fetch();
 
         if (!$user) {
             return 'User not found';
@@ -21,13 +27,14 @@ class Users
         }
         return $user;
     }
-    public function register($name, $email,$password): bool
+
+    public function register($name, $email, $password): bool
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $query = "SELECT * FROM users WHERE email = '$email'";
         $stmt = $this->db->pdo->prepare($query);
         $stmt->execute();
-        if($stmt->rowCount() > 0){
+        if ($stmt->rowCount() > 0) {
             return false;
         }
         $stmt = $this->db->pdo->prepare("INSERT INTO users (full_name, email, password) VALUES (:name, :email, :password)");
@@ -36,5 +43,13 @@ class Users
             'password' => $password,
             'name' => $name
         ]);
+    }
+
+    public function getUserById(int $id)
+    {
+        $query = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->db->pdo->prepare($query);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
