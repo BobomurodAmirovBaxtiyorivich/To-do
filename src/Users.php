@@ -2,6 +2,8 @@
 
 namespace App;
 
+use PDO;
+
 class Users
 {
     public DB $db;
@@ -9,13 +11,14 @@ class Users
         $this->db = new DB();
     }
     public function login($email, $password){
-        $stmt = $this->db->pdo->query("SELECT * FROM users WHERE email = $email AND password = $password");
-        $stmt->execute();
-        return $stmt->fetch();
+        $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE email= :email");
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     public function register($name, $email,$password): mixed
     {
-        $query = "SELECT * FROM users WHERE email = :email";
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $query = "SELECT * FROM users WHERE email = '$email'";
         $stmt = $this->db->pdo->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){

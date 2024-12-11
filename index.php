@@ -2,13 +2,11 @@
 date_default_timezone_set('Asia/Tashkent');
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-
 require 'bootstrap.php';
 
 use App\ToDo;
 use App\Router;
 use App\Users;
-
 $todo = new ToDo();
 $router = new Router();
 $users = new Users();
@@ -23,3 +21,4 @@ $router->get('/todos/{id}/edit', fn($id) => require 'controllers/edit.php');
 $router->put('/todos/{id}/update', fn($id) => require 'controllers/update.php');
 $router->post('/todos', fn() => require 'controllers/store.php');
 $router->post('/register', fn() => require 'controllers/storeUser.php');
+$router->post('/login', fn() => require 'controllers/login.php');

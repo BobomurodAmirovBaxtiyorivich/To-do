@@ -10,6 +10,6 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
     }
     unset($user['password']);
     $_SESSION['user'] = $user;
-    header('location: /');
+    header('location: /todos');
     exit();
 }
