@@ -7,15 +7,28 @@ class ToDo
     public function __construct(){
         $this->db = new DB();
     }
-    public function store(string $title, string $dueDate): bool
+    public function store(string $title, string $dueDate,int $id): bool
     {
-        $sql = "INSERT INTO todos (title, status, due_date,created_at) VALUES (?, ?, ?,NOW())";
+        $sql = "INSERT INTO todos (title, status, due_date,created_at,updated_at,user_id) VALUES (?, ?, ?,NOW(),NOW(),?)";
+        $stmt = $this->db->pdo->prepare($sql);
+        return $stmt->execute([$title, 'pending', $dueDate,$id]);
+    }
+    public function storeTest(string $title, string $dueDate): bool
+    {
+        $sql = "INSERT INTO todos (title, status, due_date,created_at,updated_at) VALUES (?, ?, ?,NOW(),NOW())";
         $stmt = $this->db->pdo->prepare($sql);
         return $stmt->execute([$title, 'pending', $dueDate]);
     }
-    public function getAllTodos(): false|array
+    public function getAllTodosOfUser(): false|array
     {
-        $sql = "Select * from todos";
+        $sql = "Select * from todos where user_id=:id";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->execute([':id'=>$_SESSION['user']['id']]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function getTodosWithoutU(): false|array
+    {
+        $sql = "Select * from todos where user_id is NULL";
         $stmt = $this->db->pdo->query($sql);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
