@@ -17,11 +17,13 @@ class Router
     public function get($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $resourceID = $this->getResource();
-            $route = str_replace("{id}", $resourceID, $route);
-            if ($route == $this->currentRoute){
-                $callback($resourceID);
-                exit();
+            $resourceValue = $this->getResource();
+            if ($resourceValue){
+                $resourceValue = str_replace('{id}', $resourceValue, $route);
+                if ($route == $this->currentRoute){
+                    $callback($resourceValue);
+                    exit();
+                }
             }
         }
     }
