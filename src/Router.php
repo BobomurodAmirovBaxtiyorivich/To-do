@@ -7,21 +7,31 @@ class Router
     public function __construct(){
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
-    public function getResource(): false|int
+    public function getResource($route): false|int
     {
-        if (isset(explode("/", $this->currentRoute)[2])) {
-            return (int)explode("/", $this->currentRoute)[2];
+        $recourseIndex = mb_stripos($route, '{id}');
+
+        if ($recourseIndex) {
+            return false;
         }
-        return false;
+
+        $resourceValue = substr($this->currentRoute, $recourseIndex);
+
+        if ($limit = mb_stripos($resourceValue, '/')) {
+            return substr($resourceValue, 0, $limit);
+        }
+        return $resourceValue ?: false;
     }
     public function get($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $resourceID = $this->getResource();
-            $route = str_replace("{id}", $resourceID, $route);
-            if ($route == $this->currentRoute){
-                $callback($resourceID);
-                exit();
+            $resourceValue = $this->getResource();
+            if ($resourceValue){
+                $resourceValue = str_replace('{id}', $resourceValue, $route);
+                if ($route == $this->currentRoute){
+                    $callback($resourceValue);
+                    exit();
+                }
             }
         }
     }
