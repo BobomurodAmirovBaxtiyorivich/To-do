@@ -7,7 +7,6 @@ class Router {
     public function __construct () {
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
-
     public function getResource ($route): false|string
     {
         $resourceIndex = mb_stripos($route, '{id}');
@@ -34,10 +33,14 @@ class Router {
     }
     public function put ($route, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_POST['_method']) && $_POST['_method'] == 'PUT'){
-                $this->extracted($route, $callback);
-            }
+        if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+            $this->extracted($route, $callback);
+        }
+    }
+    public function delete ($route, $callback): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            $this->extracted($route, $callback);
         }
     }
     public function extracted($route, $callback): void
