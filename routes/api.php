@@ -1,7 +1,5 @@
 <?php
 
-use App\Router;
-
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
@@ -9,6 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $todos = new App\ToDo();
 $router = new App\Router();
+
 $method = $_SERVER['REQUEST_METHOD'];
 $requestUri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 $id = isset($requestUri[2]) ? (int)$requestUri[2] : null;

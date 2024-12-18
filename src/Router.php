@@ -61,4 +61,7 @@ class Router {
     public function isApiCall(): bool{
         return mb_stripos($_SERVER['REQUEST_URI'], '/api') === 0;
     }
+    public function isTelegram(): bool{
+        return mb_stripos($_SERVER['REQUEST_URI'], '/telegram') === 0;
+    }
 }
