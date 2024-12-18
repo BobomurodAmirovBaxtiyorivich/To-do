@@ -1,23 +1,16 @@
 <?php
 
-date_default_timezone_set('Asia/Tashkent');
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-require 'bootstrap.php';
-
 use App\ToDo;
 use App\Router;
-use App\Users;
 
 $todo = new ToDo();
 $router = new Router();
-$users = new Users();
 
 if (empty($_SESSION['user'])) {
-    $router->get('/todos', fn() => require 'controllers/ShowTodosWithoutU.php');
+    $router->get('/todos',fn() => require 'controllers/ShowTodosWithoutU.php');
 }
 if (empty($_SESSION['user'])) {
-    $router->post('/todos', fn() => require 'controllers/storeTest.php');
+    $router->post('/todos',fn() => require 'controllers/storeTest.php');
 }
 $router->get('/', fn() => require 'views/home.php');
 $router->get('/logout', fn() => require 'controllers/logout.php');

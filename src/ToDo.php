@@ -40,7 +40,6 @@ class ToDo
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-
     public function delete(int $id): bool
     {
         $sql = "DELETE FROM todos WHERE id =:id";
@@ -60,5 +59,16 @@ class ToDo
             'status' => $status,
             'due_date' => $dueDate
         ]);
+    }
+    public function getIDs(): false|array
+    {
+        $sql = "SELECT GROUP_CONCAT(id) AS id_list FROM todos";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $result && isset($result['id_list'])
+            ? explode(',', $result['id_list'])
+            : false;
     }
 }

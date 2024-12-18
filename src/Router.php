@@ -3,11 +3,10 @@
 namespace App;
 
 class Router {
-    public $currentRoute;
+    public string|array|int|null|false $currentRoute;
     public function __construct () {
         $this->currentRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
-
     public function getResource ($route): false|string
     {
         $resourceIndex = mb_stripos($route, '{id}');
@@ -20,66 +19,49 @@ class Router {
         }
         return $resourceValue ?: false;
     }
-
-    /*
-     * FIXME
-     *  1. Make as static the methods
-     */
     public function get ($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $resourceValue = $this->getResource($route);
-            if ($resourceValue){
-                $resourceRoute = str_replace('{id}', $resourceValue, $route);
-                if ($resourceRoute == $this->currentRoute) {
-                    $callback($resourceValue);
-                    exit();
-                }
-            }
-            if ($route == $this->currentRoute) {
-                $callback();
-                exit();
-            }
+            $this->extracted($route, $callback);
         }
     }
     public function post ($route, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $resourceValue = $this->getResource($route);
-            if ($resourceValue){
-                $resourceRoute = str_replace('{id}', $resourceValue, $route);
-                if ($resourceRoute == $this->currentRoute) {
-                    $callback($resourceValue);
-                    exit();
-                }
-            }
-            if ($route == $this->currentRoute) {
-                $callback();
-                exit();
-            }
+            $this->extracted($route, $callback);
         }
     }
     public function put ($route, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_POST['_method']) && $_POST['_method'] == 'PUT'){
-                $resourceValue = $this->getResource($route);
-                if ($resourceValue){
-                    $resourceRoute = str_replace('{id}', $resourceValue, $route);
-                    if ($resourceRoute == $this->currentRoute) {
-                        $callback($resourceValue);
-                        exit();
-                    }
-                }
-                if ($route == $this->currentRoute) {
-                    $callback();
-                    exit();
-                }
-            }
+        if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+            $this->extracted($route, $callback);
         }
     }
-    public function isApiCall(): bool
+    public function delete ($route, $callback): void
     {
-        return mb_stripos($this->currentRoute, '/api') === 0;
+        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            $this->extracted($route, $callback);
+        }
+    }
+    public function extracted($route, $callback): void
+    {
+        $resourceValue = $this->getResource($route);
+        if ($resourceValue) {
+            $resourceRoute = str_replace('{id}', $resourceValue, $route);
+            if ($resourceRoute == $this->currentRoute) {
+                $callback($resourceValue);
+                exit();
+            }
+        }
+        if ($route == $this->currentRoute) {
+            $callback();
+            exit();
+        }
+    }
+    public function isApiCall(): bool{
+        return mb_stripos($_SERVER['REQUEST_URI'], '/api') === 0;
+    }
+    public function isTelegram(): bool{
+        return mb_stripos($_SERVER['REQUEST_URI'], '/telegram') === 0;
     }
 }
