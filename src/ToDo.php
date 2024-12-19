@@ -73,7 +73,7 @@ class ToDo
     }
     public function getTodoByTelegramId(int $telegramId): false|array
     {
-        $sql = "Select * from todos INNER JOIN users on todos.user_id = users.id where users.telegram_id = :telegramId";
+        $sql = "Select todos.title, todos.status,todos.due_date,todos.id as task_id from todos INNER JOIN users on todos.user_id = users.id where users.telegram_id = :telegramId";
         $stmt = $this->db->pdo->prepare($sql);
         $stmt->execute([':telegramId' => $telegramId]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
