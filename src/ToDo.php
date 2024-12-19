@@ -60,6 +60,17 @@ class ToDo
             'due_date' => $dueDate
         ]);
     }
+    public function updateStatus(int $id, string $status): bool
+    {
+        $dueDate = new \DateTime();
+        $sql = "UPDATE todos set status=:status,updated_at=NOW() where id=:id";
+        $dueDate = $dueDate->format('Y-m-d H:i:s');
+        $stmt = $this->db->pdo->prepare($sql);
+        return $stmt->execute([
+            'id' => $id,
+            'status' => $status
+        ]);
+    }
     public function getIDs(): false|array
     {
         $sql = "SELECT GROUP_CONCAT(id) AS id_list FROM todos";
@@ -79,3 +90,4 @@ class ToDo
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
+
