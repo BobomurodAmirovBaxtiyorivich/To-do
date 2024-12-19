@@ -17,9 +17,9 @@
                             </svg>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/todos">To-do List</a></li>
                             <li><a class="dropdown-item" href="/todos"><?= $_SESSION['user']['full_name'] ?? '' ?></a></li>
                             <li><a class="dropdown-item" href="/todos"><?= $_SESSION['user']['email'] ?? '' ?></a></li>
-                            <li><a class="dropdown-item" href="https://t.me/TheBoyCreatedThisTodoAppBot?start="><?=$_SESSION['user']['id'] ?? '' ?> sinc to telegram</a></li>
 
                             <li><a class="dropdown-item" href="/logout">Log out</a></li>
                         </ul>
