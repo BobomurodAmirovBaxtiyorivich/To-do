@@ -34,7 +34,6 @@ class Bot {
             $tasksLIst .= $task['due_date'] . "\n";
             $tasksLIst .= $task['status'] . "\n\n";
             $tasksLIst .= "===========================\n\n";
-
         }
         return $tasksLIst;
     }
